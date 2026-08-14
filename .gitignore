@@ -1,0 +1,10 @@
+# Claude Code local settings
+.claude/
+
+# OS junk
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Exported backups (keep these out of the repo — js/data.js is the real list)
+sams-top-5s*.json
