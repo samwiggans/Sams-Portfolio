@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sam's Top 5s</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="css/styles.css">
+<title>Sam's Portfolio</title>
+<meta name="description" content="Sam's portfolio — ranked top 5s and TikTok creator stats.">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/portfolio.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
 </head>
 <body>
@@ -19,95 +20,103 @@
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="#" title="Sam's Top 5s">
+    <a class="brand" href="index.html" title="Sam's Portfolio">
       <span class="brand-mark">🏆</span>
-      <span class="brand-text">Sam's <em>Top 5s</em></span>
+      <span class="brand-text">Sam's <em>Portfolio</em></span>
     </a>
     <div class="header-actions">
-      <button class="btn btn-ghost" id="shuffleBtn" title="Jump to a random category">Surprise me</button>
-      <button class="btn btn-primary" id="editToggle" title="Add or change your lists">Edit lists</button>
+      <a class="btn btn-ghost" href="https://www.tiktok.com/@everything_gaming05" target="_blank" rel="noopener">TikTok</a>
+      <a class="btn btn-primary" href="top-5s.html">View Top 5s</a>
     </div>
   </div>
 </header>
 
 <main>
   <section class="hero wrap">
-    <h1 class="hero-title">My Top 5s<br><span class="grad">In Each Category</span></h1>
-    <p class="hero-sub">Five slots per category.</p>
-    <div class="hero-stats" id="heroStats"></div>
+    <h1 class="hero-title">Sam's<br><span class="grad">Portfolio</span></h1>
+    <p class="hero-sub intro">
+      I make gaming and music videos on TikTok, and I rank things far more seriously
+      than anyone needs to. Both live here.
+    </p>
+    <div class="hero-links">
+      <a class="pill-link" href="https://www.tiktok.com/@everything_gaming05" target="_blank" rel="noopener">
+        <span class="pill-ico">🎵</span> @everything_gaming05
+      </a>
+      <a class="pill-link" href="https://github.com/samwiggans" target="_blank" rel="noopener">
+        <span class="pill-ico">💻</span> github.com/samwiggans
+      </a>
+    </div>
   </section>
 
-  <nav class="catbar" id="catbar" aria-label="Categories">
-    <div class="wrap catbar-inner">
-      <div class="cat-scroll" id="catScroll"></div>
+  <section class="wrap sections">
+    <div class="sections-head">
+      <h2 class="sections-title">Sections</h2>
+      <div class="cat-rule-line"></div>
     </div>
-  </nav>
 
-  <div class="wrap">
-    <div id="listRoot" class="lists"></div>
-    <p class="empty-hint" id="emptyHint" hidden>
-      Nothing here yet. Hit <strong>Edit lists</strong> up top to add your first category.
-    </p>
-  </div>
+    <div class="section-grid">
+
+      <a class="section-card reveal" href="top-5s.html">
+        <div class="section-art art-top5" aria-hidden="true">
+          <span class="art-emoji">🏆</span>
+          <span class="art-rank r1">1</span>
+          <span class="art-rank r2">2</span>
+          <span class="art-rank r3">3</span>
+        </div>
+        <div class="section-body">
+          <span class="section-kicker">Section one</span>
+          <h3 class="section-name">Top 5s</h3>
+          <p class="section-desc">
+            My definitive top five in every category — TV shows, games, albums —
+            with the artwork, ranked one to five.
+          </p>
+          <span class="section-go">Open Top 5s <span class="arrow">&rarr;</span></span>
+        </div>
+      </a>
+
+      <div class="section-card is-soon reveal">
+        <div class="section-art art-tiktok" aria-hidden="true">
+          <span class="art-emoji">🎵</span>
+          <span class="art-pulse"></span>
+        </div>
+        <div class="section-body">
+          <span class="section-kicker">Section two</span>
+          <h3 class="section-name">TikTok</h3>
+          <p class="section-desc">
+            The numbers behind @everything_gaming05 — followers, likes and views,
+            laid out properly rather than buried in the app.
+          </p>
+          <span class="section-go soon">Coming next</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
 </main>
 
 <footer class="site-footer">
   <div class="wrap footer-inner">
-    <span>Sam's Top 5s</span>
+    <span>Sam's Portfolio</span>
     <span class="dot">•</span>
-    <button class="linkish" id="exportBtn">Export data</button>
+    <a href="top-5s.html">Top 5s</a>
     <span class="dot">•</span>
-    <button class="linkish" id="importBtn">Import data</button>
+    <a href="https://www.tiktok.com/@everything_gaming05" target="_blank" rel="noopener">TikTok</a>
     <span class="dot">•</span>
-    <button class="linkish" id="resetBtn">Reset to defaults</button>
-    <input type="file" id="importFile" accept="application/json" hidden>
+    <a href="https://github.com/samwiggans/top-5s" target="_blank" rel="noopener">Source</a>
   </div>
 </footer>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" hidden>
-  <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
-  <figure class="lb-figure">
-    <img id="lbImg" alt="">
-    <figcaption id="lbCap"></figcaption>
-  </figure>
-</div>
-
-<!-- Edit drawer -->
-<aside class="drawer" id="drawer" hidden aria-label="Edit lists">
-  <div class="drawer-head">
-    <h2>Edit lists</h2>
-    <button class="icon-btn" id="drawerClose" aria-label="Close editor">&times;</button>
-  </div>
-  <div class="drawer-body">
-    <div class="field">
-      <label for="catSelect">Category</label>
-      <div class="row">
-        <select id="catSelect"></select>
-        <button class="btn btn-small" id="addCatBtn" title="New category">+ New</button>
-      </div>
-    </div>
-
-    <div class="field">
-      <label for="catName">Category name</label>
-      <div class="row">
-        <input type="text" id="catName" placeholder="e.g. TV Shows">
-        <input type="text" id="catEmoji" class="emoji-in" placeholder="📺" maxlength="4" title="Emoji">
-      </div>
-    </div>
-
-    <div class="slots" id="slots"></div>
-
-    <div class="drawer-actions">
-      <button class="btn btn-danger-ghost" id="deleteCatBtn">Delete category</button>
-      <button class="btn btn-primary" id="saveBtn">Save changes</button>
-    </div>
-    <p class="save-note" id="saveNote"></p>
-  </div>
-</aside>
-<div class="drawer-scrim" id="scrim" hidden></div>
-
-<script src="js/data.js"></script>
-<script src="js/app.js"></script>
+<script>
+  /* Fade the section cards in as they arrive */
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add("in"); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach((el, i) => {
+    el.style.transitionDelay = i * 90 + "ms";
+    io.observe(el);
+  });
+</script>
 </body>
 </html>

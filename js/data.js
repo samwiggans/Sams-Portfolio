@@ -20,7 +20,7 @@
      ]
    }
 
-   IMAGES: drop files into the "images" folder next to index.html and
+   IMAGES: drop files into the "images" folder next to top-5s.html and
    reference them as "images/whatever.jpg". Items with no image get a
    generated poster instead, so nothing ever looks broken.
    =========================================================== */

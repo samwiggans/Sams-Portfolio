@@ -1,0 +1,162 @@
+/* ===========================================================
+   Sam's Portfolio — shared theme
+   Tokens, page shell, header, buttons, footer. Loaded by every
+   page; each page then loads its own stylesheet on top.
+   =========================================================== */
+
+:root{
+  --bg:        #07070c;
+  --bg-soft:   #0d0d16;
+  --panel:     rgba(255,255,255,.045);
+  --panel-2:   rgba(255,255,255,.075);
+  --line:      rgba(255,255,255,.10);
+  --line-2:    rgba(255,255,255,.18);
+  --text:      #f2f2f7;
+  --muted:     #9a9aae;
+  --gold:      #ffc94d;
+  --hot:       #ff4d7d;
+  --violet:    #8b5cf6;
+  --cyan:      #38e1ff;
+  --radius:    18px;
+  --shadow:    0 24px 60px -20px rgba(0,0,0,.8);
+  --ease:      cubic-bezier(.2,.7,.25,1);
+}
+
+*{ box-sizing:border-box; }
+
+/* class rules elsewhere would otherwise beat the UA stylesheet's [hidden] */
+[hidden]{ display:none !important; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+.wrap{ width:min(1180px, 92vw); margin-inline:auto; }
+
+img{ max-width:100%; display:block; }
+
+button{ font:inherit; color:inherit; cursor:pointer; }
+
+/* ---------- Background aurora ---------- */
+.aurora{ position:fixed; inset:0; z-index:-1; overflow:hidden; background:
+  radial-gradient(1200px 700px at 70% -10%, #16162a 0%, transparent 60%),
+  radial-gradient(900px 600px at 10% 10%, #131328 0%, transparent 55%),
+  var(--bg); }
+.blob{ position:absolute; border-radius:50%; filter:blur(90px); opacity:.35; }
+.blob-1{ width:52vw; height:52vw; left:-12vw; top:-14vw; background:radial-gradient(circle, var(--violet), transparent 65%); animation:float1 24s var(--ease) infinite alternate; }
+.blob-2{ width:44vw; height:44vw; right:-10vw; top:6vw; background:radial-gradient(circle, var(--hot), transparent 65%); animation:float2 30s var(--ease) infinite alternate; }
+.blob-3{ width:40vw; height:40vw; left:35vw; top:55vh; background:radial-gradient(circle, var(--cyan), transparent 65%); opacity:.18; animation:float3 34s var(--ease) infinite alternate; }
+.grain{ position:absolute; inset:0; opacity:.05; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+@keyframes float1{ to{ transform:translate3d(6vw,8vh,0) scale(1.15); } }
+@keyframes float2{ to{ transform:translate3d(-8vw,12vh,0) scale(1.2); } }
+@keyframes float3{ to{ transform:translate3d(10vw,-14vh,0) scale(.85); } }
+
+/* ---------- Header ---------- */
+.site-header{
+  position:sticky; top:0; z-index:40;
+  backdrop-filter:blur(14px);
+  background:linear-gradient(to bottom, rgba(7,7,12,.85), rgba(7,7,12,.45));
+  border-bottom:1px solid var(--line);
+}
+.header-inner{ display:flex; align-items:center; justify-content:space-between; gap:16px; height:68px; }
+.brand{ display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--text); }
+/* Trophy sits on dark with a gold ring — the emoji is gold itself, so a gold
+   fill behind it washes out (same reason it reads well in the browser tab). */
+.brand-mark{
+  display:grid; place-items:center; width:38px; height:38px; border-radius:12px;
+  font-size:20px; line-height:1;
+  background:linear-gradient(145deg, #1c1c2e, #12121d);
+  border:1px solid rgba(255,201,77,.45);
+  box-shadow:0 6px 20px -8px rgba(255,201,77,.55), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.brand-text{ font-weight:700; letter-spacing:.2px; font-size:18px; }
+.brand-text em{ font-style:normal; background:linear-gradient(90deg, var(--gold), var(--hot)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.header-actions{ display:flex; align-items:center; gap:10px; }
+
+/* "Portfolio" breadcrumb shown on section pages */
+.back-link{
+  display:inline-flex; align-items:center; gap:7px; text-decoration:none;
+  color:var(--muted); font-size:14px; font-weight:600;
+  padding:8px 14px; border-radius:999px; border:1px solid var(--line);
+  transition:color .18s var(--ease), border-color .18s var(--ease), transform .18s var(--ease);
+}
+.back-link:hover{ color:var(--text); border-color:var(--line-2); transform:translateX(-2px); }
+
+/* ---------- Buttons ---------- */
+.btn{
+  border:1px solid var(--line-2); background:var(--panel); color:var(--text);
+  padding:9px 16px; border-radius:999px; font-weight:600; font-size:14px;
+  transition:transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
+}
+.btn:hover{ transform:translateY(-2px); background:var(--panel-2); border-color:var(--line-2); }
+.btn:active{ transform:translateY(0); }
+.btn-primary{
+  border-color:transparent; color:#1a1206;
+  background:linear-gradient(135deg, #ffe08a, var(--gold));
+  box-shadow:0 10px 24px -10px rgba(255,201,77,.8);
+}
+.btn-primary:hover{ background:linear-gradient(135deg, #fff0bd, #ffd469); }
+.btn-ghost{ background:transparent; }
+.btn-small{ padding:7px 12px; font-size:13px; }
+.btn-danger-ghost{ border-color:rgba(255,77,125,.35); color:#ff8fae; background:transparent; }
+.btn-danger-ghost:hover{ background:rgba(255,77,125,.12); }
+.icon-btn{ background:none; border:0; font-size:28px; line-height:1; color:var(--muted); padding:4px 8px; border-radius:10px; }
+.icon-btn:hover{ color:var(--text); background:var(--panel); }
+.linkish{ background:none; border:0; color:var(--muted); text-decoration:underline; text-underline-offset:3px; padding:0; font-size:inherit; }
+.linkish:hover{ color:var(--text); }
+
+/* ---------- Hero type ---------- */
+.hero{ padding:78px 0 42px; }
+.hero-title{
+  margin:0; font-size:clamp(38px, 7.2vw, 78px); line-height:1.02;
+  font-weight:800; letter-spacing:-.03em;
+}
+.grad{ background:linear-gradient(100deg, var(--gold) 0%, var(--hot) 45%, var(--violet) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent; }
+.hero-sub{ margin:20px 0 0; color:var(--muted); font-size:clamp(15px,1.6vw,19px); max-width:52ch; }
+.hero-stats{ display:flex; flex-wrap:wrap; gap:28px; margin-top:34px; }
+.stat{ display:flex; flex-direction:column; }
+.stat b{ font-size:28px; font-weight:800; letter-spacing:-.02em; }
+.stat span{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+
+/* ---------- Footer ---------- */
+.site-footer{ border-top:1px solid var(--line); background:rgba(7,7,12,.6); }
+.footer-inner{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; padding:26px 0; color:var(--muted); font-size:13px; }
+.dot{ opacity:.4; }
+.site-footer a{ color:var(--muted); text-decoration:underline; text-underline-offset:3px; }
+.site-footer a:hover{ color:var(--text); }
+
+/* ---------- Reveal animation ---------- */
+.reveal{ opacity:0; transform:translateY(26px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.in{ opacity:1; transform:none; }
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .header-inner{ height:64px; }
+}
+@media (max-width:560px){
+  .header-inner{ height:58px; }
+  .brand{ gap:9px; }
+  .brand-mark{ width:32px; height:32px; font-size:16px; border-radius:10px; }
+  .brand-text{ font-size:15px; white-space:nowrap; }
+  .header-actions .btn{ padding:8px 14px; font-size:13px; }
+  .back-link{ padding:7px 11px; font-size:13px; }
+  .hero{ padding:52px 0 30px; }
+  .hero-stats{ gap:26px; }
+  .stat b{ font-size:24px; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  html{ scroll-behavior:auto; }
+  .reveal{ opacity:1; transform:none; }
+}

@@ -1,0 +1,115 @@
+/* ===========================================================
+   Portfolio home — page-specific styles
+   Shared shell lives in theme.css.
+   =========================================================== */
+
+.intro{ max-width:46ch; }
+
+/* ---------- Hero links ---------- */
+.hero-links{ display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+.pill-link{
+  display:inline-flex; align-items:center; gap:9px;
+  padding:10px 18px; border-radius:999px; text-decoration:none;
+  font-size:14px; font-weight:600; color:var(--text);
+  border:1px solid var(--line); background:var(--panel);
+  transition:transform .18s var(--ease), border-color .18s var(--ease), background .18s var(--ease);
+}
+.pill-link:hover{ transform:translateY(-2px); border-color:var(--line-2); background:var(--panel-2); }
+.pill-ico{ font-size:15px; }
+
+/* ---------- Sections ---------- */
+.sections{ padding:34px 0 100px; }
+.sections-head{ display:flex; align-items:center; gap:20px; margin-bottom:30px; }
+.sections-title{
+  margin:0; font-size:13px; font-weight:700; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--muted);
+}
+.cat-rule-line{ flex:1; height:1px; background:linear-gradient(90deg, var(--line-2), transparent); }
+
+.section-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:26px; }
+
+.section-card{
+  position:relative; display:flex; flex-direction:column; overflow:hidden;
+  border-radius:var(--radius); border:1px solid var(--line);
+  background:var(--bg-soft); box-shadow:var(--shadow);
+  text-decoration:none; color:var(--text);
+  transition:transform .3s var(--ease), border-color .3s var(--ease);
+}
+a.section-card:hover{ transform:translateY(-7px); border-color:rgba(255,201,77,.4); }
+
+/* Artwork panel at the top of each card */
+.section-art{
+  position:relative; height:210px; overflow:hidden;
+  display:grid; place-items:center;
+}
+.art-top5{ background:linear-gradient(140deg, #2b1055 0%, #4a1f6b 45%, #7b2d5e 100%); }
+.art-tiktok{ background:linear-gradient(140deg, #0f2027 0%, #123b4a 45%, #1d5c66 100%); }
+.section-art::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(13,13,22,.95) 2%, rgba(13,13,22,.35) 45%, transparent 80%);
+}
+.art-emoji{
+  font-size:74px; line-height:1; filter:drop-shadow(0 10px 26px rgba(0,0,0,.55));
+  transition:transform .45s var(--ease);
+}
+a.section-card:hover .art-emoji{ transform:scale(1.09) rotate(-4deg); }
+
+/* Floating rank chips on the Top 5s artwork */
+.art-rank{
+  position:absolute; display:grid; place-items:center;
+  width:34px; height:34px; border-radius:11px;
+  font-weight:800; font-size:15px; color:#fff;
+  background:rgba(10,10,18,.55); border:1px solid var(--line-2);
+  backdrop-filter:blur(6px);
+}
+.art-rank.r1{ top:26px; left:34px; color:#1a1206; border-color:transparent;
+  background:linear-gradient(145deg,#ffe08a,var(--gold)); box-shadow:0 8px 22px -8px rgba(255,201,77,.9); }
+.art-rank.r2{ top:60px; right:44px; color:#12121c; border-color:transparent;
+  background:linear-gradient(145deg,#f4f6fb,#c3cad8); }
+.art-rank.r3{ bottom:58px; left:64px; color:#1a1206; border-color:transparent;
+  background:linear-gradient(145deg,#f0b98a,#c98351); }
+
+/* Soft pulse behind the TikTok note */
+.art-pulse{
+  position:absolute; width:150px; height:150px; border-radius:50%;
+  border:1px solid rgba(56,225,255,.35);
+  animation:pulse 3.4s var(--ease) infinite;
+}
+@keyframes pulse{
+  0%   { transform:scale(.7); opacity:.9; }
+  100% { transform:scale(1.5); opacity:0; }
+}
+
+.section-body{ padding:24px 24px 26px; display:flex; flex-direction:column; gap:8px; flex:1; }
+.section-kicker{
+  font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted);
+}
+.section-name{ margin:0; font-size:27px; font-weight:800; letter-spacing:-.02em; }
+.section-desc{ margin:2px 0 0; color:var(--muted); font-size:15px; line-height:1.55; }
+.section-go{
+  margin-top:auto; padding-top:16px; font-weight:700; font-size:14.5px; color:var(--gold);
+  display:inline-flex; align-items:center; gap:8px;
+}
+.arrow{ transition:transform .25s var(--ease); }
+a.section-card:hover .arrow{ transform:translateX(5px); }
+
+/* The not-yet-built card reads as inert rather than broken */
+.section-card.is-soon{ opacity:.86; }
+.section-card.is-soon .section-go.soon{
+  color:var(--muted); font-weight:600;
+  padding:5px 12px; border-radius:999px; align-self:flex-start;
+  border:1px dashed var(--line-2); margin-top:auto;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:780px){
+  .section-grid{ grid-template-columns:1fr; gap:20px; }
+  .section-art{ height:180px; }
+  .art-emoji{ font-size:62px; }
+}
+@media (max-width:560px){
+  .sections{ padding:24px 0 72px; }
+  .section-name{ font-size:23px; }
+  .hero-links{ gap:9px; }
+  .pill-link{ padding:9px 14px; font-size:13px; }
+}
