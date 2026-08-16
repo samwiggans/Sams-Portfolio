@@ -135,9 +135,11 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 .site-footer a{ color:var(--muted); text-decoration:underline; text-underline-offset:3px; }
 .site-footer a:hover{ color:var(--text); }
 
-/* ---------- Reveal animation ---------- */
-.reveal{ opacity:0; transform:translateY(26px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
-.reveal.in{ opacity:1; transform:none; }
+/* ---------- Reveal animation ----------
+   Scoped to html.js so that if scripting is blocked or a script throws, the
+   content is simply visible rather than stuck at opacity 0 forever. */
+html.js .reveal{ opacity:0; transform:translateY(26px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+html.js .reveal.in{ opacity:1; transform:none; }
 
 /* ---------- Responsive ---------- */
 @media (max-width:900px){
