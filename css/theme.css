@@ -134,6 +134,15 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 .dot{ opacity:.4; }
 .site-footer a{ color:var(--muted); text-decoration:underline; text-underline-offset:3px; }
 .site-footer a:hover{ color:var(--text); }
+/* The page you're on: unlinked, gold, with a lit dot in front of it */
+.footer-inner .current{
+  display:inline-flex; align-items:center; gap:8px;
+  color:var(--gold); font-weight:700;
+}
+.footer-inner .current::before{
+  content:""; width:6px; height:6px; border-radius:50%;
+  background:var(--gold); box-shadow:0 0 10px rgba(255,201,77,.85);
+}
 
 /* ---------- Reveal animation ----------
    Scoped to html.js so that if scripting is blocked or a script throws, the
