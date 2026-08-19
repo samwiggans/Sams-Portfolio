@@ -74,7 +74,8 @@ body[data-list="blackpool"] .tab.is-active{
 .list-hint{ margin:18px 0 26px; color:var(--muted); font-size:14px; }
 
 /* ---------- Leagues ---------- */
-.leagues{ display:flex; flex-direction:column; gap:44px; }
+/* Header's "Jump to list" lands below the sticky controls, not under them */
+.leagues{ display:flex; flex-direction:column; gap:44px; scroll-margin-top:150px; }
 .league-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; }
 .league-title{ display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
 .league-title h2{ margin:0; font-size:clamp(20px,2.6vw,27px); font-weight:800; letter-spacing:-.02em; }
