@@ -15,22 +15,37 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   const TOTAL = LEAGUES.reduce((n, l) => n + l.clubs.length, 0);
+  const KNOWN = new Set(LEAGUES.flatMap(l => l.clubs.map(c => c.id)));
+
+  /* Count only grounds that are still on the list, so the headline figure always
+     matches the ticks you can see. A club dropping out of the top five leagues
+     keeps its tick in storage — it just stops counting until the club is back. */
+  const countOf = list => ticks[list].filter(id => KNOWN.has(id)).length;
 
   let activeList = "general";
   let ticks = load();
 
-  /* ---------- storage ---------- */
+  /* ---------- storage ----------
+     Your browser's copy wins; with nothing saved we fall back to the
+     published ticks in stadiums-visited.js, which is what visitors get. */
+  function published() {
+    const src = (typeof VISITED === "object" && VISITED) ? VISITED : {};
+    return {
+      general:   Array.isArray(src.general)   ? src.general.slice()   : [],
+      blackpool: Array.isArray(src.blackpool) ? src.blackpool.slice() : []
+    };
+  }
+
   function load() {
-    const empty = { general: [], blackpool: [] };
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return empty;
+      if (!raw) return published();
       const parsed = JSON.parse(raw);
       LISTS.forEach(k => { if (!Array.isArray(parsed[k])) parsed[k] = []; });
       return parsed;
     } catch (err) {
-      console.warn("Couldn't read saved ticks, starting fresh.", err);
-      return empty;
+      console.warn("Couldn't read saved ticks, falling back to the published set.", err);
+      return published();
     }
   }
 
@@ -112,8 +127,8 @@
   }
 
   function updateStats() {
-    const g = ticks.general.length;
-    const b = ticks.blackpool.length;
+    const g = countOf("general");
+    const b = countOf("blackpool");
 
     setStat($("#statGeneral"), g);
     setStat($("#statBlackpool"), b);
@@ -175,11 +190,54 @@
   $("#search").addEventListener("input", applyFilter);
   $("#onlyTicked").addEventListener("change", applyFilter);
 
-  $("#resetBtn").addEventListener("click", () => {
+  $("#clearBtn").addEventListener("click", () => {
     const label = activeList === "general" ? "grounds visited" : "grounds watching Blackpool";
     if (!confirm(`Clear every tick on the "${label}" list? The other list is left alone.`)) return;
     ticks[activeList] = [];
     save();
+    paint();
+  });
+
+  /* ---------- export / import / reset ---------- */
+  $("#exportBtn").addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify(ticks, null, 2)], { type: "application/json" });
+    const a = Object.assign(document.createElement("a"), {
+      href: URL.createObjectURL(blob),
+      download: "sams-stadiums.json"
+    });
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  $("#importBtn").addEventListener("click", () => $("#importFile").click());
+
+  $("#importFile").addEventListener("change", e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(reader.result);
+        if (!parsed || typeof parsed !== "object") throw new Error("Not a ticks file");
+        const next = { general: [], blackpool: [] };
+        LISTS.forEach(k => { if (Array.isArray(parsed[k])) next[k] = parsed[k].filter(id => typeof id === "string"); });
+        ticks = next;
+        save();
+        paint();
+        alert(`Imported — ${next.general.length} grounds visited, ${next.blackpool.length} watching Blackpool.`);
+      } catch (err) {
+        alert("That file didn't look like a Stadium Checklist export.");
+        console.error(err);
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = "";
+  });
+
+  $("#resetBtn").addEventListener("click", () => {
+    if (!confirm("Throw away the ticks saved in this browser and go back to what's published on the site?")) return;
+    localStorage.removeItem(STORAGE_KEY);
+    ticks = published();
     paint();
   });
 

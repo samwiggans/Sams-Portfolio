@@ -27,7 +27,7 @@
     </a>
     <div class="header-actions">
       <a class="back-link" href="index.html">&larr; Home</a>
-      <button class="btn btn-ghost" id="resetBtn" title="Clear every tick on the list you're viewing">Reset</button>
+      <a class="btn btn-primary" href="top-5s.html">Top 5s</a>
     </div>
   </div>
 </header>
@@ -79,6 +79,7 @@
           <input type="checkbox" id="onlyTicked">
           <span>Ticked only</span>
         </label>
+        <button class="linkish" id="clearBtn" title="Untick everything on the list you're viewing">Clear list</button>
       </div>
     </div>
 
@@ -101,12 +102,20 @@
     <span class="current" aria-current="page">Stadiums</span>
     <span class="dot">•</span>
     <a href="https://github.com/samwiggans/Sams-Website-of-Random-Stuff" target="_blank" rel="noopener">Source</a>
+    <span class="dot">•</span>
+    <button class="linkish" id="exportBtn">Export data</button>
+    <span class="dot">•</span>
+    <button class="linkish" id="importBtn">Import data</button>
+    <span class="dot">•</span>
+    <button class="linkish" id="resetBtn">Reset to defaults</button>
+    <input type="file" id="importFile" accept="application/json" hidden>
   </div>
 </footer>
 
 <!-- stats.js must come before stadiums.js: the checklist calls Stats.set()
      as soon as it paints, and registers the counters' observers first. -->
 <script src="js/stadiums-data.js"></script>
+<script src="js/stadiums-visited.js"></script>
 <script src="js/stats.js"></script>
 <script src="js/stadiums.js"></script>
 </body>
