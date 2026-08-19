@@ -74,12 +74,15 @@
         <button class="tab"           role="tab" aria-selected="false" data-list="blackpool">Watching Blackpool</button>
       </div>
       <div class="list-tools">
-        <input type="search" id="search" placeholder="Search club or ground…" aria-label="Search club or ground">
-        <label class="switch">
-          <input type="checkbox" id="onlyTicked">
-          <span>Ticked only</span>
-        </label>
-        <button class="linkish" id="clearBtn" title="Untick everything on the list you're viewing">Clear list</button>
+        <div class="filters">
+          <input type="search" id="search" placeholder="Search club or ground…" aria-label="Search club or ground">
+          <label class="switch">
+            <input type="checkbox" id="onlyTicked">
+            <span>Ticked only</span>
+          </label>
+        </div>
+        <span class="tool-sep" aria-hidden="true"></span>
+        <button class="btn btn-small btn-danger-ghost" id="clearBtn" title="Untick everything on the list you're viewing">Clear list</button>
       </div>
     </div>
 

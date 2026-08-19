@@ -61,7 +61,11 @@ body[data-list="blackpool"] .tab.is-active{
   color:#2a1400; background:linear-gradient(135deg,#ffb257,var(--tangerine));
 }
 
-.list-tools{ display:flex; align-items:center; gap:12px; }
+/* Search and the filter toggle belong together; "Clear list" is a different
+   kind of thing, so it gets a divider and room of its own. */
+.list-tools{ display:flex; align-items:center; gap:16px; }
+.filters{ display:flex; align-items:center; gap:14px; }
+.tool-sep{ width:1px; height:24px; background:var(--line); flex:0 0 auto; }
 #search{
   width:min(280px, 52vw); padding:10px 14px; border-radius:999px; font-size:14px;
   background:#12121d; color:var(--text); border:1px solid var(--line-2);
@@ -161,8 +165,15 @@ body[data-list="blackpool"] .tab.is-active{
   .list-controls{ top:58px; flex-direction:column; align-items:stretch; }
   .tabs{ justify-content:center; }
   .tab{ flex:1; padding:9px 10px; font-size:13px; }
-  .list-tools{ justify-content:space-between; }
-  #search{ width:100%; }
+  .list-tools{ justify-content:space-between; gap:12px; }
+  .filters{ flex:1; gap:12px; }
+  .tool-sep{ display:none; }
+  #search{ flex:1; width:auto; min-width:0; }
+}
+@media (max-width:430px){
+  .list-tools{ flex-wrap:wrap; }
+  .filters{ flex:1 1 100%; }
+  #clearBtn{ margin-left:auto; }
 }
 
 @media (prefers-reduced-motion:reduce){
