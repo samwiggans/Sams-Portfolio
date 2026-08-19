@@ -44,7 +44,7 @@ body[data-list="blackpool"]{ --list-accent:var(--tangerine); }
 .list-controls{
   position:sticky; top:68px; z-index:20;
   display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
-  gap:14px; padding:14px 0;
+  gap:14px; padding:14px 20px;
   background:rgba(7,7,12,.86); backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line);
 }
@@ -162,7 +162,7 @@ body[data-list="blackpool"] .tab.is-active{
 }
 @media (max-width:680px){
   .ground-list{ grid-template-columns:1fr; }
-  .list-controls{ top:58px; flex-direction:column; align-items:stretch; }
+  .list-controls{ top:58px; flex-direction:column; align-items:stretch; padding:14px 14px; }
   .tabs{ justify-content:center; }
   .tab{ flex:1; padding:9px 10px; font-size:13px; }
   .list-tools{ justify-content:space-between; gap:12px; }
