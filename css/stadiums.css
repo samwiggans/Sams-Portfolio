@@ -1,0 +1,170 @@
+/* ===========================================================
+   Stadium Checklist — page-specific styles
+   Shared shell and stat cards live in theme.css.
+   =========================================================== */
+
+/* Whichever list you're ticking sets the accent for the rows:
+   gold for grounds in general, tangerine for Blackpool. */
+body{ --list-accent:var(--gold); }
+body[data-list="blackpool"]{ --list-accent:var(--tangerine); }
+
+/* ---------- Hero ---------- */
+.st-hero{ padding-bottom:34px; }
+
+.handle-pill{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:8px 16px 8px 13px; margin-bottom:22px;
+  border-radius:999px; font-size:13.5px; font-weight:600;
+  color:var(--text); border:1px solid var(--line-2);
+  background:linear-gradient(120deg, rgba(246,135,18,.16), rgba(255,201,77,.10));
+}
+.tangerine-dot{
+  width:8px; height:8px; border-radius:50%; background:var(--tangerine);
+  animation:tangerinePulse 2.4s var(--ease) infinite;
+}
+@keyframes tangerinePulse{
+  0%   { box-shadow:0 0 0 0 rgba(246,135,18,.65); }
+  70%  { box-shadow:0 0 0 11px rgba(246,135,18,0); }
+  100% { box-shadow:0 0 0 0 rgba(246,135,18,0); }
+}
+
+.grad-st{
+  background:linear-gradient(100deg, var(--tangerine) 0%, var(--gold) 55%, #ffd9a0 100%);
+  background-size:220% 100%;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  animation:sweep 9s var(--ease) infinite alternate;
+}
+@keyframes sweep{ to{ background-position:100% 0; } }
+
+.stats-section{ padding:20px 0 46px; }
+
+/* ---------- Controls ---------- */
+.list-section{ padding-bottom:96px; }
+
+.list-controls{
+  position:sticky; top:68px; z-index:20;
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+  gap:14px; padding:14px 0;
+  background:rgba(7,7,12,.86); backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+
+.tabs{ display:flex; gap:8px; background:var(--panel); padding:5px; border-radius:999px; border:1px solid var(--line); }
+.tab{
+  border:0; background:none; color:var(--muted);
+  padding:9px 18px; border-radius:999px; font-size:14px; font-weight:600;
+  transition:color .2s var(--ease), background .2s var(--ease);
+}
+.tab:hover{ color:var(--text); }
+.tab.is-active{ color:#1a1206; background:linear-gradient(135deg,#ffe08a,var(--gold)); }
+body[data-list="blackpool"] .tab.is-active{
+  color:#2a1400; background:linear-gradient(135deg,#ffb257,var(--tangerine));
+}
+
+.list-tools{ display:flex; align-items:center; gap:12px; }
+#search{
+  width:min(280px, 52vw); padding:10px 14px; border-radius:999px; font-size:14px;
+  background:#12121d; color:var(--text); border:1px solid var(--line-2);
+}
+#search:focus{ outline:none; border-color:var(--list-accent); }
+.switch{ display:inline-flex; align-items:center; gap:8px; font-size:13.5px; color:var(--muted); cursor:pointer; white-space:nowrap; }
+.switch input{ accent-color:var(--list-accent); width:16px; height:16px; cursor:pointer; }
+.switch:hover{ color:var(--text); }
+
+.list-hint{ margin:18px 0 26px; color:var(--muted); font-size:14px; }
+
+/* ---------- Leagues ---------- */
+.leagues{ display:flex; flex-direction:column; gap:44px; }
+.league-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; }
+.league-title{ display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
+.league-title h2{ margin:0; font-size:clamp(20px,2.6vw,27px); font-weight:800; letter-spacing:-.02em; }
+.tier{
+  font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
+  border:1px solid var(--line-2); border-radius:999px; padding:3px 9px;
+}
+.league-count{ font-size:14px; color:var(--muted); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.league-count b{ color:var(--list-accent); font-size:17px; }
+
+.league-bar{ height:3px; border-radius:999px; background:rgba(255,255,255,.07); margin:12px 0 18px; overflow:hidden; }
+.league-bar span{
+  display:block; height:100%; width:0; border-radius:999px;
+  background:linear-gradient(90deg, transparent, var(--list-accent));
+  transition:width .6s var(--ease);
+}
+.league.complete .league-bar span{ background:linear-gradient(90deg, var(--list-accent), #7ee08a); }
+
+/* ---------- Ground rows ---------- */
+.ground-list{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }
+
+.tick{
+  width:100%; display:flex; align-items:center; gap:13px; text-align:left;
+  padding:13px 15px; border-radius:13px;
+  border:1px solid var(--line); background:var(--panel); color:var(--text);
+  transition:border-color .2s var(--ease), background .2s var(--ease), transform .2s var(--ease);
+}
+.tick:hover{ border-color:var(--line-2); background:var(--panel-2); transform:translateY(-2px); }
+.tick:focus-visible{ outline:2px solid var(--list-accent); outline-offset:2px; }
+
+.tick-box{
+  flex:0 0 auto; width:22px; height:22px; border-radius:7px;
+  border:1.5px solid var(--line-2); background:rgba(0,0,0,.25);
+  display:grid; place-items:center;
+  transition:background .2s var(--ease), border-color .2s var(--ease);
+}
+.tick-box::after{
+  content:"✓"; font-size:13px; font-weight:800; color:#1a1206;
+  opacity:0; transform:scale(.5); transition:opacity .2s var(--ease), transform .2s var(--ease);
+}
+
+.ground-text{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+.club{ font-size:14.5px; font-weight:700; letter-spacing:-.01em; }
+.stadium{ font-size:12.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+/* Ticked state */
+.ground.ticked .tick{
+  border-color:color-mix(in srgb, var(--list-accent) 50%, transparent);
+  background:color-mix(in srgb, var(--list-accent) 12%, transparent);
+}
+.ground.ticked .tick-box{
+  background:var(--list-accent); border-color:transparent;
+}
+.ground.ticked .tick-box::after{ opacity:1; transform:none; }
+.ground.ticked .stadium{ color:#c9c9d6; }
+
+/* A little pop the moment you tick something */
+.ground.just-ticked .tick-box{ animation:pop .42s var(--ease); }
+@keyframes pop{
+  0%   { transform:scale(1); }
+  45%  { transform:scale(1.28); }
+  100% { transform:scale(1); }
+}
+
+/* Blackpool's own ground, flagged in the list */
+.ground.is-home .tick{ border-color:rgba(246,135,18,.4); }
+.home-flag{
+  margin-left:7px; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:#2a1400; background:var(--tangerine); border-radius:999px; padding:2px 7px; vertical-align:middle;
+}
+
+.empty-msg{ text-align:center; color:var(--muted); padding:60px 0; font-size:16px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width:1000px){
+  .ground-list{ grid-template-columns:repeat(2, 1fr); }
+}
+@media (max-width:900px){
+  .list-controls{ top:64px; }
+}
+@media (max-width:680px){
+  .ground-list{ grid-template-columns:1fr; }
+  .list-controls{ top:58px; flex-direction:column; align-items:stretch; }
+  .tabs{ justify-content:center; }
+  .tab{ flex:1; padding:9px 10px; font-size:13px; }
+  .list-tools{ justify-content:space-between; }
+  #search{ width:100%; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .grad-st, .tangerine-dot{ animation:none !important; }
+  .ground.just-ticked .tick-box{ animation:none; }
+}

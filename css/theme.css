@@ -20,6 +20,10 @@
   --radius:    18px;
   --shadow:    0 24px 60px -20px rgba(0,0,0,.8);
   --ease:      cubic-bezier(.2,.7,.25,1);
+  /* Section accents */
+  --tt-cyan:   #25f4ee;
+  --tt-red:    #fe2c55;
+  --tangerine: #f68712;
 }
 
 *{ box-sizing:border-box; }
@@ -128,6 +132,93 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 .stat b{ font-size:28px; font-weight:800; letter-spacing:-.02em; }
 .stat span{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
 
+/* ---------- Stat cards ----------
+   Used by the TikTok section and the Stadium Checklist. The number
+   counts up when the card scrolls into view (js/stats.js). */
+.stats-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; }
+.stats-grid.cols-2{ grid-template-columns:repeat(2, 1fr); }
+
+.stat-card{
+  position:relative; overflow:hidden; isolation:isolate;
+  border-radius:var(--radius); border:1px solid var(--line);
+  background:var(--bg-soft); box-shadow:var(--shadow);
+  padding:38px 26px 30px;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  transition:transform .35s var(--ease), border-color .35s var(--ease);
+}
+.stat-card:hover{ transform:translateY(-8px); }
+
+.stat-card[data-accent="cyan"]     { --accent:var(--tt-cyan); }
+.stat-card[data-accent="red"]      { --accent:var(--tt-red); }
+.stat-card[data-accent="violet"]   { --accent:var(--violet); }
+.stat-card[data-accent="tangerine"]{ --accent:var(--tangerine); }
+.stat-card[data-accent="gold"]     { --accent:var(--gold); }
+.stat-card:hover{ border-color:color-mix(in srgb, var(--accent) 45%, transparent); }
+
+.stat-card::before{
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:radial-gradient(420px 220px at 50% -12%, var(--accent), transparent 70%);
+  opacity:.14; transition:opacity .35s var(--ease);
+}
+.stat-card:hover::before{ opacity:.26; }
+
+.stat-ring{
+  position:absolute; top:16px; left:50%; translate:-50% 0;
+  width:126px; height:126px; border-radius:50%;
+  display:grid; place-items:center; z-index:-1; opacity:.75;
+}
+.ring-spin{
+  position:absolute; inset:0; border-radius:50%;
+  background:conic-gradient(from 0deg, transparent 0deg, var(--accent) 90deg, transparent 200deg);
+  -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+          mask:radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+  animation:spin 6s linear infinite;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+.stat-icon{
+  font-size:38px; line-height:1; margin-bottom:16px;
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,.5));
+  transition:transform .4s var(--ease);
+}
+.stat-card:hover .stat-icon{ transform:translateY(-3px) scale(1.08); }
+
+.stat-value{
+  font-size:clamp(42px, 6vw, 62px); font-weight:800; letter-spacing:-.04em; line-height:1;
+  font-variant-numeric:tabular-nums;
+  background:linear-gradient(180deg, #fff 20%, color-mix(in srgb, var(--accent) 70%, #fff));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.stat-label{
+  margin-top:12px; font-size:12px; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--muted);
+}
+.stat-sub{ margin-top:8px; font-size:13px; color:var(--muted); }
+
+.stat-bar{
+  margin-top:22px; width:100%; height:3px; border-radius:999px;
+  background:rgba(255,255,255,.07); overflow:hidden;
+}
+.stat-bar span{
+  display:block; height:100%; width:0; border-radius:999px;
+  background:linear-gradient(90deg, transparent, var(--accent));
+  transition:width 1.4s var(--ease) .25s;
+}
+.stat-card.in .stat-bar span{ width:var(--fill); }
+
+@media (max-width:860px){
+  .stats-grid, .stats-grid.cols-2{ grid-template-columns:1fr; gap:18px; }
+  .stat-card{ padding:32px 22px 26px; }
+  .stat-ring{ width:110px; height:110px; }
+}
+@media (max-width:560px){
+  .stat-value{ font-size:44px; }
+}
+@media (prefers-reduced-motion:reduce){
+  .ring-spin{ animation:none !important; }
+  .stat-bar span{ transition:none; }
+}
+
 /* ---------- Footer ---------- */
 .site-footer{ border-top:1px solid var(--line); background:rgba(7,7,12,.6); }
 .footer-inner{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; padding:26px 0; color:var(--muted); font-size:13px; }
@@ -154,12 +245,20 @@ html.js .reveal.in{ opacity:1; transform:none; }
 @media (max-width:900px){
   .header-inner{ height:64px; }
 }
+@media (max-width:620px){
+  .header-actions{ gap:7px; }
+  .header-actions .btn{ padding:7px 11px; font-size:12.5px; }
+}
+/* Home carries three section buttons; below this the wordmark has to go
+   so they still fit alongside the logo. */
+@media (max-width:430px){
+  .brand-text{ display:none; }
+}
 @media (max-width:560px){
   .header-inner{ height:58px; }
   .brand{ gap:9px; }
   .brand-mark{ width:32px; height:32px; font-size:16px; border-radius:10px; }
   .brand-text{ font-size:15px; white-space:nowrap; }
-  .header-actions .btn{ padding:8px 14px; font-size:13px; }
   .back-link{ padding:7px 11px; font-size:13px; }
   .hero{ padding:52px 0 30px; }
   .hero-stats{ gap:26px; }

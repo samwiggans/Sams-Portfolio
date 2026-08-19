@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stadium Checklist — Sam's Website of Random Stuff</title>
+<meta name="description" content="Tracking every ground visited across the top five English leagues, and every ground visited watching Blackpool.">
+<script>document.documentElement.classList.add("js");</script>
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/stadiums.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏟️</text></svg>">
+</head>
+<body>
+
+<div class="aurora" aria-hidden="true">
+  <span class="blob blob-1"></span>
+  <span class="blob blob-2"></span>
+  <span class="blob blob-3"></span>
+  <span class="grain"></span>
+</div>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" title="Back to Sam's Website of Random Stuff">
+      <span class="brand-mark">🏟️</span>
+      <span class="brand-text">Sam's <em>Stadiums</em></span>
+    </a>
+    <div class="header-actions">
+      <a class="back-link" href="index.html">&larr; Home</a>
+      <button class="btn btn-ghost" id="resetBtn" title="Clear every tick on the list you're viewing">Reset</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap st-hero">
+    <span class="handle-pill">
+      <span class="tangerine-dot" aria-hidden="true"></span>
+      Blackpool FC
+    </span>
+    <h1 class="hero-title">Stadium<br><span class="grad-st">Checklist</span></h1>
+    <p class="hero-sub">Every ground in the top five English leagues, ticked off as I go.</p>
+  </section>
+
+  <section class="wrap stats-section">
+    <div class="stats-grid cols-2">
+
+      <article class="stat-card" data-accent="gold">
+        <div class="stat-ring" aria-hidden="true"><span class="ring-spin"></span></div>
+        <div class="stat-icon" aria-hidden="true">🏟️</div>
+        <div class="stat-value" id="statGeneral" data-target="0" data-decimals="0">0</div>
+        <div class="stat-label">Grounds visited</div>
+        <div class="stat-sub"><span id="subGeneral">of 116</span></div>
+        <div class="stat-bar" aria-hidden="true"><span id="barGeneral" style="--fill:0%"></span></div>
+      </article>
+
+      <article class="stat-card" data-accent="tangerine">
+        <div class="stat-ring" aria-hidden="true"><span class="ring-spin"></span></div>
+        <div class="stat-icon" aria-hidden="true">🍊</div>
+        <div class="stat-value" id="statBlackpool" data-target="0" data-decimals="0">0</div>
+        <div class="stat-label">Watching Blackpool</div>
+        <div class="stat-sub"><span id="subBlackpool">of 116</span></div>
+        <div class="stat-bar" aria-hidden="true"><span id="barBlackpool" style="--fill:0%"></span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="wrap list-section">
+
+    <div class="list-controls">
+      <div class="tabs" role="tablist" aria-label="Which list to tick">
+        <button class="tab is-active" role="tab" aria-selected="true"  data-list="general">All grounds</button>
+        <button class="tab"           role="tab" aria-selected="false" data-list="blackpool">Watching Blackpool</button>
+      </div>
+      <div class="list-tools">
+        <input type="search" id="search" placeholder="Search club or ground…" aria-label="Search club or ground">
+        <label class="switch">
+          <input type="checkbox" id="onlyTicked">
+          <span>Ticked only</span>
+        </label>
+      </div>
+    </div>
+
+    <p class="list-hint" id="listHint"></p>
+
+    <div id="leagues" class="leagues"></div>
+
+    <p class="empty-msg" id="emptyMsg" hidden>Nothing matches that search.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <a href="index.html">Home</a>
+    <span class="dot">•</span>
+    <a href="top-5s.html">Top 5s</a>
+    <span class="dot">•</span>
+    <a href="tiktok.html">TikTok</a>
+    <span class="dot">•</span>
+    <span class="current" aria-current="page">Stadiums</span>
+    <span class="dot">•</span>
+    <a href="https://github.com/samwiggans/Sams-Website-of-Random-Stuff" target="_blank" rel="noopener">Source</a>
+  </div>
+</footer>
+
+<!-- stats.js must come before stadiums.js: the checklist calls Stats.set()
+     as soon as it paints, and registers the counters' observers first. -->
+<script src="js/stadiums-data.js"></script>
+<script src="js/stats.js"></script>
+<script src="js/stadiums.js"></script>
+</body>
+</html>
