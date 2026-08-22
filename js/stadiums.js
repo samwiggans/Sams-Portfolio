@@ -116,6 +116,8 @@
       section.classList.toggle("complete", done === rows.length);
     });
 
+    if (window.StadiumMap) window.StadiumMap.paint(ticks[activeList]);
+
     updateStats();
     applyFilter();
   }

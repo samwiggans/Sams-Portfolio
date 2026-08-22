@@ -38,6 +38,56 @@ body[data-list="blackpool"]{ --list-accent:var(--tangerine); }
 
 .stats-section{ padding:20px 0 46px; }
 
+/* ---------- Map ---------- */
+.map-section{ padding:10px 0 54px; }
+.map-head{ display:flex; align-items:baseline; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:18px; }
+.map-title{ margin:0; font-size:clamp(20px,2.6vw,27px); font-weight:800; letter-spacing:-.02em; }
+.map-legend{ margin:0; display:flex; align-items:center; gap:9px; font-size:13px; color:var(--muted); flex-wrap:wrap; }
+.map-legend b{ color:var(--list-accent); }
+.key{ width:10px; height:10px; border-radius:50%; display:inline-block; }
+.key-on{ background:var(--list-accent); box-shadow:0 0 10px color-mix(in srgb, var(--list-accent) 70%, transparent); }
+.key-off{ background:rgba(255,255,255,.18); }
+.key-home{ background:var(--tangerine); box-shadow:0 0 0 2px rgba(246,135,18,.28); }
+
+.map-frame{
+  border:1px solid var(--line); border-radius:var(--radius);
+  background:linear-gradient(165deg, #0c1420 0%, #0a0f18 60%, #120c18 100%);
+  box-shadow:var(--shadow);
+  padding:18px; display:grid; place-items:center;
+}
+#groundMap{ width:100%; max-width:420px; height:auto; overflow:visible; }
+
+.map-land{
+  fill:rgba(255,255,255,.045);
+  stroke:rgba(255,255,255,.22);
+  stroke-width:2.5;
+  stroke-linejoin:round;
+}
+
+.map-pin{ cursor:default; }
+.pin-dot{
+  fill:rgba(255,255,255,.16);
+  transition:fill .35s var(--ease), r .25s var(--ease);
+}
+.pin-halo{ fill:transparent; transition:fill .35s var(--ease); }
+
+.map-pin.is-ticked .pin-dot{ fill:var(--list-accent); }
+.map-pin.is-ticked .pin-halo{ fill:color-mix(in srgb, var(--list-accent) 22%, transparent); }
+.map-pin.is-ticked.is-home .pin-dot{ fill:var(--tangerine); }
+.map-pin.is-ticked.is-home .pin-halo{ fill:rgba(246,135,18,.28); }
+
+.map-pin:hover .pin-dot, .map-pin:focus .pin-dot{ r:9; fill:#fff; }
+.map-pin:focus{ outline:none; }
+.map-pin:focus .pin-halo{ fill:rgba(255,255,255,.3); }
+
+/* The one pin that always stands out */
+.map-pin.is-home .pin-dot{ fill:rgba(246,135,18,.45); }
+
+@media (max-width:560px){
+  .map-frame{ padding:12px; }
+  #groundMap{ max-width:300px; }
+}
+
 /* ---------- Controls ---------- */
 .list-section{ padding-bottom:96px; }
 
